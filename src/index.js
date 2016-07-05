@@ -1,7 +1,7 @@
 import {sum, mean, stdev} from 'stats-lite'
 import Table from 'cli-table'
 import ms from 'pretty-ms'
-import {bold} from 'chalk'
+import {bold, red} from 'chalk'
 
 const FUNCTIONS = ['load', 'resolveId', 'transform', 'transformBundle']
 
@@ -19,22 +19,36 @@ export default class RollupTimer {
   }
 
   report () {
-    const timings = this._timings
+    const ids = Object.keys(this._timings)
+      .filter((id) => (this._timings[id].length > 0))
+    const maxSum = Math.max(0, ...ids.map((id) => sum(this._timings[id])))
+    const all = Array.prototype.concat.apply([], ids.map((id) => this._timings[id]))
     const table = new Table({
-      head: ['Plugin', 'Calls', 'Sum', 'Mean', 'StdDev']
+      head: ['Plugin', 'Calls', 'Sum', 'Mean', 'StdDev'],
+      colAligns: ['left', 'right', 'right', 'right', 'right'],
+      style: {
+        head: ['cyan']
+      }
     })
-    for (const id of Object.keys(timings)) {
-      this._addToReport(table, id, timings[id])
+    for (const id of ids) {
+      this._addToReport(table, id, this._timings[id], maxSum)
     }
-    const all = Array.prototype.concat.apply([],
-      Object.keys(timings).map((id) => timings[id]))
-    this._addToReport(table, 'Total', all, bold)
+    this._addToReport(table, 'Total', all)
     console.log(table.toString())
   }
 
-  _addToReport (table, id, t, fmt = null) {
-    const row = [id, t.length, ms(sum(t)), ms(mean(t)), ms(stdev(t))]
-    table.push(fmt ? row.map((str) => fmt(str)) : row)
+  _addToReport (table, id, data, maxSum = -1) {
+    const dataSum = sum(data)
+    const dataMean = mean(data)
+    const dataStdev = stdev(data)
+    let row = [id, data.length, ms(dataSum), ms(dataMean), ms(dataStdev)]
+    if (dataSum === maxSum) {
+      row = row.map((str) => red(str))
+    }
+    if (maxSum < 0) {
+      row = row.map((str) => bold(str))
+    }
+    table.push(row)
   }
 
   _time (plugin, i) {
