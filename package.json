@@ -1,6 +1,6 @@
 {
   "name": "rollup-timer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Times Rollup plugins by monkey-patching plugin API functions.",
   "main": "index.js",
   "jsnext:main": "src/index.js",
