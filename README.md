@@ -73,13 +73,15 @@ supported out of the box, here's an example that uses those two functions:
 import rollupStream from 'rollup-stream'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
+
 // 2. Import RollupTimer
 import {RollupTimer} from 'rollup-timer'
 
+// 3. Create timer
 const timer = new RollupTimer()
 
 const options = {
-  plugins: timer.time([ // ← 3. Wrap your plugins in timer.time()
+  plugins: timer.time([ // ← 4. Wrap your plugins in timer.time()
     nodeResolve({jsnext: true, main: true}),
     commonjs({include: 'node_modules/**'})
   ])
@@ -87,7 +89,7 @@ const options = {
 }
 rollupStream(options)
   .once('end', function () {
-    // 4. Write the timing report to the console
+    // 5. Write the timing report to the console
     timer.report()
     console.info('Done!')
   })
