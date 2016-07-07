@@ -4,6 +4,9 @@
 
 Times Rollup plugins by monkey-patching plugin API functions.
 
+<p align="center"><img alt="Example"
+src="https://raw.githubusercontent.com/timdp/rollup-timer/master/example.png"></p>
+
 ## Installation
 
 ```bash
