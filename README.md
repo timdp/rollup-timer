@@ -1,6 +1,6 @@
 # rollup-timer
 
-[![npm](https://img.shields.io/npm/v/rollup-timer.svg)](https://www.npmjs.com/package/rollup-timer) [![Dependencies](https://img.shields.io/david/timdp/rollup-timer.svg)](https://david-dm.org/timdp/rollup-timer) [![Build Status](https://img.shields.io/travis/timdp/rollup-timer/master.svg)](https://travis-ci.org/timdp/rollup-timer) [![Coverage Status](https://img.shields.io/coveralls/timdp/rollup-timer/master.svg)](https://coveralls.io/r/timdp/rollup-timer) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![npm](https://img.shields.io/npm/v/rollup-timer.svg)](https://www.npmjs.com/package/rollup-timer) [![Dependencies](https://img.shields.io/david/timdp/rollup-timer.svg)](https://david-dm.org/timdp/rollup-timer) [![Build Status](https://img.shields.io/travis/timdp/rollup-timer/master.svg)](https://travis-ci.org/timdp/rollup-timer) [![Coverage Status](https://img.shields.io/coveralls/timdp/rollup-timer/master.svg)](https://coveralls.io/r/timdp/rollup-timer) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Times Rollup plugins by monkey-patching plugin API functions.
 
