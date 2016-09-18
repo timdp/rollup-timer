@@ -3,20 +3,20 @@ import loadPlugins from 'gulp-load-plugins'
 import {Instrumenter} from 'isparta'
 import del from 'del'
 import seq from 'run-sequence'
+import yargs from 'yargs'
 
 const COVERAGE_THRESHOLDS = {global: 90}
 
 const $ = loadPlugins()
-
-const plumb = () => $.if(!process.env.CI, $.plumber({
-  errorHandler: $.notify.onError('<%= error.message %>')
-}))
+const argv = yargs
+  .string('grep')
+  .boolean('bail')
+  .argv
 
 gulp.task('clean', () => del('lib'))
 
 gulp.task('transpile', () => {
   return gulp.src('src/**/*.js')
-    .pipe(plumb())
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.sourcemaps.write())
@@ -25,7 +25,6 @@ gulp.task('transpile', () => {
 
 gulp.task('lint', () => {
   return gulp.src('{src,test}/**/*.js')
-    .pipe(plumb())
     .pipe($.standard())
     .pipe($.standard.reporter('default', {breakOnError: false}))
 })
@@ -38,8 +37,11 @@ gulp.task('pre-coverage', () => {
 
 gulp.task('coverage', ['pre-coverage'], () => {
   return gulp.src(['test/lib/setup.js', 'test/{unit,integration}/**/*.js', '!**/_*.js'], {read: false})
-    .pipe(plumb())
-    .pipe($.mocha({reporter: 'spec'}))
+    .pipe($.mocha({
+      reporter: 'spec',
+      grep: argv.grep,
+      bail: argv.bail
+    }))
     .pipe($.istanbul.writeReports())
     .pipe($.istanbul.enforceThresholds({thresholds: COVERAGE_THRESHOLDS}))
 })
