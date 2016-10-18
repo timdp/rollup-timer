@@ -7,6 +7,12 @@ Times Rollup plugins by monkey-patching plugin API functions.
 <p align="center"><img alt="Example"
 src="https://raw.githubusercontent.com/timdp/rollup-timer/master/example.png"></p>
 
+**Warning:** At the time of this writing, the latest version of
+[rollup-plugin-commonjs](https://www.npmjs.com/package/rollup-plugin-commonjs)
+is incompatible with rollup-timer. Until
+[this issue](https://github.com/rollup/rollup-plugin-commonjs/issues/128) is
+resolved, unfortunately, you cannot combine both packages.
+
 ## Installation
 
 ```bash
