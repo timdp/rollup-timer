@@ -3,7 +3,16 @@ import Table from 'cli-table'
 import ms from 'pretty-ms'
 import {bold, red} from 'chalk'
 
-const FUNCTIONS = ['load', 'resolveId', 'transform', 'transformBundle']
+const FUNCTIONS = [
+  'load',
+  'resolveId',
+  'transform',
+  'transformBundle',
+  'intro',
+  'outro',
+  'banner',
+  'footer'
+]
 
 export default class RollupTimer {
   constructor () {
