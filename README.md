@@ -11,7 +11,7 @@ src="https://raw.githubusercontent.com/timdp/rollup-timer/master/example.png"></
 [rollup-plugin-commonjs](https://www.npmjs.com/package/rollup-plugin-commonjs)
 is incompatible with rollup-timer. Until
 [this issue](https://github.com/rollup/rollup-plugin-commonjs/issues/128) is
-resolved, unfortunately, you cannot combine both packages.
+resolved, timings for rollup-plugin-commonjs will be incomplete.
 
 ## Installation
 

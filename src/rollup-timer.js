@@ -71,6 +71,10 @@ export default class RollupTimer {
 
   _patch (plugin, func, timings) {
     const that = this
+    if (plugin.name === 'commonjs' && func === 'resolveId') {
+      console.warn('rollup-timer: Timings for rollup-plugin-commonjs will be incomplete due to https://github.com/rollup/rollup-plugin-commonjs/issues/128')
+      return
+    }
     const original = plugin[func]
     plugin[func] = function (...args) {
       const end = that._startTimer(timings)
