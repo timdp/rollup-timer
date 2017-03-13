@@ -84,10 +84,11 @@ export default class RollupTimer {
   }
 
   _startTimer (timings) {
-    const started = Date.now()
+    const started = process.hrtime()
     return () => {
-      const time = Date.now() - started
-      timings.push(time)
+      const delta = process.hrtime(started)
+      const ms = delta[0] * 1000 + delta[1] / 1e6
+      timings.push(ms)
     }
   }
 
