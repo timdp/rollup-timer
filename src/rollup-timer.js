@@ -14,6 +14,8 @@ const FUNCTIONS = [
   'footer'
 ]
 
+let warnedAboutCjs = false
+
 export default class RollupTimer {
   constructor () {
     this._timings = {}
@@ -72,7 +74,10 @@ export default class RollupTimer {
   _patch (plugin, func, timings) {
     const that = this
     if (plugin.name === 'commonjs' && func === 'resolveId') {
-      console.warn('rollup-timer: Timings for rollup-plugin-commonjs will be incomplete due to https://github.com/rollup/rollup-plugin-commonjs/issues/128')
+      if (!warnedAboutCjs) {
+        console.warn('rollup-timer: Timings for rollup-plugin-commonjs will be incomplete due to https://github.com/rollup/rollup-plugin-commonjs/issues/128')
+        warnedAboutCjs = true
+      }
       return
     }
     const original = plugin[func]
