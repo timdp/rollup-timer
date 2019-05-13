@@ -51,7 +51,7 @@
     "run-sequence": "^1.2.2",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
-    "yargs": "^7.0.2"
+    "yargs": "^13.2.4"
   },
   "standard": {
     "globals": [
