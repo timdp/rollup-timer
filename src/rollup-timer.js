@@ -80,11 +80,20 @@ export default class RollupTimer {
       }
       return
     }
-    const original = plugin[func]
-    plugin[func] = function (...args) {
-      const end = that._startTimer(timings)
-      const res = original.apply(this, args)
-      return that._handleResult(res, end)
+    const original = plugin[func];
+    if (typeof original === "function") {
+      plugin[func] = function (...args) {
+        const end = that._startTimer(timings);
+        const res = original.apply(this, args);
+        return that._handleResult(res, end);
+      };
+    } else {
+      const hook = original.hook;
+      plugin[func].hook = function (...args) {
+        const end = that._startTimer(timings);
+        const res = hook.apply(this, args);
+        return that._handleResult(res, end);
+      };
     }
   }
 
